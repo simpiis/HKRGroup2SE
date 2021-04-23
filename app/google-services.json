@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "620279830148",
+    "project_id": "hkrgroup2se",
+    "storage_bucket": "hkrgroup2se.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620279830148:android:3ee4e779144f02e15ad4d1",
+        "android_client_info": {
+          "package_name": "com.example.hkrgroup2se"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620279830148-drug853a988vcn2qe91pnsvfh1c4472f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwP0q5t0BtjhFs2h4a-T3vsuA7ebEwzIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620279830148-drug853a988vcn2qe91pnsvfh1c4472f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
