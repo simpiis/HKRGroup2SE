@@ -1,7 +1,15 @@
 package com.example.hkrgroup2se.Skeleton;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
+import android.util.Log;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class User {
 
@@ -9,12 +17,34 @@ public class User {
     String lastName;
     String email;
     String userUID;
+    FirebaseAuth auth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    FirebaseDatabase database = FirebaseDatabase.getInstance();
+//    DatabaseReference myRef = database.getReference("Users");
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Users");
+    public void pushToDatabase(String UID) {
 
-    public void pushToDatabase(){
-        myRef.push().setValue(this);
+        Log.e("in push", "in push");
+
+
+//       Map<String,String> data = new HashMap<>();
+//       data.put("name",firstName);
+//       data.put("email",email);
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("email", email);
+        db.collection("users").document(UID).set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.e("test", "in push");
+            }
+        });
+
+
+//        myRef.push().setValue(this);
+    }
+
+    public User() {
+
     }
 
     public User(String firstName, String lastName, String email, String userUID) {

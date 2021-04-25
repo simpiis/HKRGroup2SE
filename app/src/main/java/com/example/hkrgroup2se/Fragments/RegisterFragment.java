@@ -1,23 +1,35 @@
 package com.example.hkrgroup2se.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class RegisterFragment extends Fragment {
@@ -26,6 +38,7 @@ public class RegisterFragment extends Fragment {
     EditText firstName, lastName, email, password;
     TextView goBack;
     FirebaseAuth firebaseAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,35 +67,45 @@ public class RegisterFragment extends Fragment {
                 String MAIL = email.getText().toString().trim();
                 String PW = password.getText().toString().trim();
 
-                if(TextUtils.isEmpty(FN)){
+                if (TextUtils.isEmpty(FN)) {
                     firstName.setError("First name is required");
                     return;
                 }
-                if(TextUtils.isEmpty(LN)){
+                if (TextUtils.isEmpty(LN)) {
                     lastName.setError("Last name is required");
                     return;
                 }
-                if(TextUtils.isEmpty(MAIL)){
+                if (TextUtils.isEmpty(MAIL)) {
                     email.setError("Email is required");
                     return;
                 }
-                if(TextUtils.isEmpty(PW)){
+                if (TextUtils.isEmpty(PW)) {
                     password.setError("Password is required");
                     return;
                 }
 
                 // CREATING FIREBASE USER
-                firebaseAuth.createUserWithEmailAndPassword(MAIL,PW).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.createUserWithEmailAndPassword(MAIL, PW).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
+                            Log.e("on complete auth", "on complete auth");
                             // PUSHING CREATED USER TO DATABASE
                             String UID = firebaseAuth.getUid();
-                            User user = new User(FN,LN,MAIL,UID);
-                            user.pushToDatabase();
-                            Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_homeFragment);
+                            Log.e("test uid", UID);
+                            User user = new User(FN, LN, MAIL, UID);
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("email", MAIL);
+                            db.collection("users").document(UID).set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Log.e("complete", "complete");
+                                    Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_homeFragment);
+                                }
+                            });
+
                         } else {
-                            // TODO: write error
+                            Toast.makeText(getContext(),"ERROR",Toast.LENGTH_LONG).show();
                         }
                     }
                 });
