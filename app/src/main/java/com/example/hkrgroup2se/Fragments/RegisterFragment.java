@@ -1,10 +1,12 @@
 package com.example.hkrgroup2se.Fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -19,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hkrgroup2se.R;
+import com.example.hkrgroup2se.Skeleton.DBConnect;
+import com.example.hkrgroup2se.Skeleton.Security;
 import com.example.hkrgroup2se.Skeleton.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -39,6 +43,7 @@ public class RegisterFragment extends Fragment {
     TextView goBack;
     FirebaseAuth firebaseAuth;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Security security = new Security();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,25 +72,44 @@ public class RegisterFragment extends Fragment {
                 String MAIL = email.getText().toString().trim();
                 String PW = password.getText().toString().trim();
 
+
+                boolean error = false;
+                if (!security.checkString(FN)){
+                    firstName.setError("First name may only contain characters");
+                    error = true;
+                }
+                if (!security.checkString(LN)){
+                    lastName.setError("Last name may only contain characters");
+                    error = true;
+                }
+                if (!security.checkEmail(MAIL)){
+                    email.setError("Email must contain '.' and '@'");
+                    error = true;
+                }
                 if (TextUtils.isEmpty(FN)) {
                     firstName.setError("First name is required");
-                    return;
+                    error = true;
                 }
                 if (TextUtils.isEmpty(LN)) {
                     lastName.setError("Last name is required");
-                    return;
+                    error = true;
                 }
                 if (TextUtils.isEmpty(MAIL)) {
                     email.setError("Email is required");
-                    return;
+                    error = true;
                 }
                 if (TextUtils.isEmpty(PW)) {
                     password.setError("Password is required");
+                    error = true;
+                }
+                if (error){
                     return;
                 }
 
+
                 // CREATING FIREBASE USER
                 firebaseAuth.createUserWithEmailAndPassword(MAIL, PW).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
@@ -96,6 +120,10 @@ public class RegisterFragment extends Fragment {
                             User user = new User(FN, LN, MAIL, UID);
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("email", MAIL);
+
+                            DBConnect dbConnect = DBConnect.getInstance();
+                            dbConnect.addInformation(user);
+
                             db.collection("users").document(UID).set(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

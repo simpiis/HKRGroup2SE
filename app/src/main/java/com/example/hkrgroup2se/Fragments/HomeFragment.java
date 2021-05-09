@@ -1,17 +1,24 @@
 package com.example.hkrgroup2se.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
 import com.example.hkrgroup2se.R;
+import com.example.hkrgroup2se.Skeleton.DBConnect;
+import com.example.hkrgroup2se.Skeleton.Security;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,6 +29,11 @@ public class HomeFragment extends Fragment {
     Button login, signUp;
     FirebaseAuth firebaseAuth;
     EditText email, password;
+    private String userKey;
+
+    public String getUserKey() {
+        return userKey;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +56,7 @@ public class HomeFragment extends Fragment {
                 String EMAIL = email.getText().toString().trim();
                 String PW = password.getText().toString().trim();
 
-                if(TextUtils.isEmpty(EMAIL)){
+                if (TextUtils.isEmpty(EMAIL)) {
                     email.setError("Email is required");
                     return;
                 }
@@ -53,13 +65,14 @@ public class HomeFragment extends Fragment {
                     return;
                 }
 
-                firebaseAuth.signInWithEmailAndPassword(EMAIL,PW).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.signInWithEmailAndPassword(EMAIL, PW).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_appFragment);
                         } else {
-                           // TODO: ERROR MESSAGE
+                            // TODO: ERROR MESSAGE
                         }
                     }
                 });

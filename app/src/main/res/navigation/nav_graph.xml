@@ -35,5 +35,29 @@
         <action
             android:id="@+id/action_appFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_addGroceriesFragment"
+            app:destination="@id/addGroceriesFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addGroceriesFragment"
+        android:name="com.example.hkrgroup2se.Fragments.AddGroceriesFragment"
+        android:label="fragment_add_groceries"
+        tools:layout="@layout/fragment_add_groceries" >
+        <action
+            android:id="@+id/action_addGroceriesFragment_to_appFragment"
+            app:destination="@id/appFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inventoryFragment"
+        android:name="com.example.hkrgroup2se.Fragments.InventoryFragment"
+        android:label="fragment_inventory"
+        tools:layout="@layout/fragment_inventory" >
+        <action
+            android:id="@+id/action_inventoryFragment_to_appFragment"
+            app:destination="@id/appFragment" />
     </fragment>
 </navigation>

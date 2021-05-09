@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.AddGroceriesFragment">
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/brand"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:completionThreshold="0"
+        android:hint="Brand"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="@+id/name"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Prize"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/amount"
+        app:layout_constraintStart_toStartOf="@+id/amount"
+        app:layout_constraintTop_toBottomOf="@+id/amount" />
+
+    <AutoCompleteTextView
+        android:id="@+id/typeOfAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:completionThreshold="0"
+        android:hint="Type of Amount"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="@+id/typeOfGrocery"
+        app:layout_constraintStart_toStartOf="@+id/typeOfGrocery"
+        app:layout_constraintTop_toBottomOf="@+id/typeOfGrocery" />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Amount"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/typeOfAmount"
+        app:layout_constraintStart_toStartOf="@+id/typeOfAmount"
+        app:layout_constraintTop_toBottomOf="@+id/typeOfAmount" />
+
+    <AutoCompleteTextView
+        android:id="@+id/typeOfGrocery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:completionThreshold="0"
+        android:hint="Type of Grocery"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="@+id/brand"
+        app:layout_constraintStart_toStartOf="@+id/brand"
+        app:layout_constraintTop_toBottomOf="@+id/brand" />
+
+    <Button
+        android:id="@+id/AddGroceryButton"
+        android:layout_width="392dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Add Grocery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/price"
+        app:layout_constraintStart_toStartOf="@+id/price" />
+
+    <DatePicker
+        android:id="@+id/datePicker1"
+        android:layout_width="238dp"
+        android:layout_height="132dp"
+        android:layout_marginTop="10dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintEnd_toEndOf="@+id/price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="191dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Select expiration date"
+        app:layout_constraintEnd_toEndOf="@+id/datePicker1"
+        app:layout_constraintStart_toStartOf="@+id/datePicker1"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
