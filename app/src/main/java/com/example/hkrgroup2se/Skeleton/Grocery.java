@@ -11,6 +11,7 @@ public class Grocery {
     private String typeOfGrocery;
     private String bestBefore;
 
+
     public Grocery(String name, String brand, float prize, String typeOfAmount, String amount, String typeOfGrocery, String bestBefore) {
         this.name = name;
         this.brand = brand;
@@ -19,6 +20,15 @@ public class Grocery {
         this.amount = amount;
         this.typeOfGrocery = typeOfGrocery;
         this.bestBefore = bestBefore;
+    }
+
+    //Constructor for Barcode scanner (from database\Grocery\[EAN]
+    public Grocery(String name, String brand, String typeOfAmount, String amount, String typeOfGrocery) {
+        this.name = name;
+        this.brand = brand;
+        this.typeOfAmount = typeOfAmount;
+        this.amount = amount;
+        this.typeOfGrocery = typeOfGrocery;
     }
 
     public Grocery(){

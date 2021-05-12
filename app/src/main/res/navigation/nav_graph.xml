@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_addGroceriesFragment_to_appFragment"
             app:destination="@id/appFragment" />
+        <action
+            android:id="@+id/action_addGroceriesFragment_to_scannerFragment"
+            app:destination="@id/scannerFragment" />
     </fragment>
     <fragment
         android:id="@+id/inventoryFragment"
@@ -59,5 +62,15 @@
         <action
             android:id="@+id/action_inventoryFragment_to_appFragment"
             app:destination="@id/appFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scannerFragment"
+        android:name="com.example.hkrgroup2se.Fragments.ScannerFragment"
+        android:label="fragment_scanner"
+        tools:layout="@layout/fragment_scanner" >
+        <action
+            android:id="@+id/action_scannerFragment_pop"
+            app:popUpTo="@id/addGroceriesFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>
