@@ -32,4 +32,14 @@
         app:layout_constraintStart_toStartOf="@+id/addGroceryFragment"
         app:layout_constraintTop_toBottomOf="@+id/addGroceryFragment" />
 
+    <Button
+        android:id="@+id/shoppingListButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Shopping List"
+        app:layout_constraintEnd_toEndOf="@+id/inventoryButton"
+        app:layout_constraintStart_toStartOf="@+id/inventoryButton"
+        app:layout_constraintTop_toBottomOf="@+id/inventoryButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
