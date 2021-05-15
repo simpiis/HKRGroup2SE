@@ -92,12 +92,9 @@ public class AppFragment extends Fragment {
         if (user != null) {
             email.setText(user.getEmail());
         } else {
-
+            email.setText("Cant resolve user");
         }
     }
 
-    public String getCurrentUser() {
-        FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
-        return getCurrentUser.getEmail();
-    }
+
 }
