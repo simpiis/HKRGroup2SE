@@ -14,7 +14,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DBConnect<T> {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -92,6 +96,35 @@ public class DBConnect<T> {
             }
         });
     }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void setShoppingListTitle(){
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        ListDate ld = new ListDate(currentDate);
+        Map info = new HashMap();
+        info.put("Title",ld);
+        FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String hashedEmail = security.hashString(getCurrentUser.getEmail());
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)) {
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/");
+                        databaseReference.push().setValue(ld);
+
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
 }

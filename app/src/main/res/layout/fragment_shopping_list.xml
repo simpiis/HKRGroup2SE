@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +8,15 @@
 
 
     <Button
+
+        android:id="@+id/newListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+"
         android:layout_marginLeft="300dp"
         android:layout_marginTop="10dp"
-        android:id="@+id/newListButton"
+        android:text="+"
 
-        ></Button>
+        app:backgroundTint="#7D10FA"></Button>
 
     <ListView
         android:id="@+id/shoppingListView"
@@ -22,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/form"
         android:layout_marginBottom="0dp"
-        android:background="#5B5BE4"
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:cacheColorHint="#571CE1"
+        android:divider="@color/purple_500"
+        android:dividerHeight="10.0sp"
         android:paddingBottom="10dp"
         android:text="">
 

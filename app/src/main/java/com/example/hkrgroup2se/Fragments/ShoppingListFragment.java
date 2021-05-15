@@ -18,13 +18,17 @@ import android.widget.ListView;
 
 import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.DBConnect;
+import com.example.hkrgroup2se.Skeleton.ListDate;
+import com.example.hkrgroup2se.Skeleton.ShoppingListItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class ShoppingListFragment extends Fragment {
@@ -34,8 +38,10 @@ public class ShoppingListFragment extends Fragment {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     ArrayAdapter arrayAdapter;
-    ArrayList<String> groceryList = new ArrayList<>();
+    ArrayList<ShoppingListItem> list = new ArrayList<>();
     Button newListButton;
+
+    ArrayList<String> keys = new ArrayList<>();
 
     public ShoppingListFragment() {
         // Required empty public constructor
@@ -58,20 +64,19 @@ public class ShoppingListFragment extends Fragment {
         newListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Create new item and add it to list below, at top of screen.
-//
+                dbConnect.setShoppingListTitle();
             }
         });
 
         shoppingListView = view.findViewById(R.id.shoppingListView);
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, groceryList);
+        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
         shoppingListView.setAdapter(arrayAdapter);
         shoppingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Object o = shoppingListView.getItemAtPosition(position);
-
-                Navigation.findNavController(view).navigate(R.id.action_shoppingListFragment_to_manageShoppingListFragment);
+                Bundle bundle = new Bundle();
+                bundle.putString("key", keys.get(position));
+                Navigation.findNavController(view).navigate(R.id.action_shoppingListFragment_to_manageShoppingListFragment,bundle);
             }
         });
 
@@ -88,13 +93,17 @@ public class ShoppingListFragment extends Fragment {
                         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList<String> shoppingLists = new ArrayList<>();
+                                ArrayList<ListDate> shoppingLists = new ArrayList<>();
                                 for (DataSnapshot snap : snapshot.getChildren()) {
-                                    String listTitle = snap.getValue(String.class);
+                                    ListDate listTitle = snap.getValue(ListDate.class);
+                                    System.out.println(listTitle.getDate()+" swag");
                                     shoppingLists.add(listTitle);
+                                    keys.add(snap.getKey());
+
                                 }
-                                for (String g : shoppingLists) {
-                                    arrayAdapter.insert(g, arrayAdapter.getCount());
+
+                                for (ListDate g : shoppingLists) {
+                                    arrayAdapter.insert(g.getDate(), arrayAdapter.getCount());
                                 }
                             }
 

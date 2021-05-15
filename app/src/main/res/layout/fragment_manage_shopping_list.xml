@@ -5,17 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.ManageShoppingListFragment">
 
-   <ListView
-       android:id="@+id/itemList"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_above="@+id/form"
-       android:layout_marginBottom="0dp"
-       android:background="#5B5BE4"
-       android:divider="@null"
-       android:dividerHeight="0dp"
-       android:paddingBottom="10dp"
-       android:text="" >
-       ></ListView>
+    <Button
+        android:id="@+id/addItemButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="10dp"
+        android:text="Add item"></Button>
+
+    <ListView
+        android:id="@+id/manageListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/form"
+        android:layout_marginBottom="0dp"
+        android:cacheColorHint="#571CE1"
+        android:divider="@color/purple_500"
+        android:dividerHeight="10.0sp"
+        android:paddingBottom="10dp"
+        android:text="">
+
+    </ListView>
 
 </FrameLayout>
