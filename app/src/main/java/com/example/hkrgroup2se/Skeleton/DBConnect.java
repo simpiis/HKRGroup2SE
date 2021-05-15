@@ -69,7 +69,29 @@ public class DBConnect<T> {
                 }
             });
 
-        }
+        } else if (info instanceof Waste){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String hashedEmail = security.hashString(currentUser.getEmail());
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)){
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/Waste");
+                        databaseReference.push().setValue(info);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     }
 
 }

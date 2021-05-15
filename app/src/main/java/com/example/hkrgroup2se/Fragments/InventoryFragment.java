@@ -6,10 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -77,7 +79,7 @@ public class InventoryFragment extends Fragment {
                                     groceries.add(grocery);
                                 }
                                 for (Grocery g : groceries) {
-                                    String show = g.getName() + ", " + g.getBrand() + "," + g.getBestBefore();
+                                    String show = g.getName() + ", " + g.getBrand() + ", " + g.getBestBefore();
                                     arrayAdapter.insert(show, arrayAdapter.getCount());
                                 }
                             }
@@ -94,6 +96,14 @@ public class InventoryFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+        groceryListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("pos", position);
+                Navigation.findNavController(view).navigate(R.id.action_inventoryFragment_to_myGroceriesFragment, bundle);
             }
         });
         return view;

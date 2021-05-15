@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AppFragment extends Fragment {
-    Button addGroceryFragment, inventoryButton, shoppingListButton;
+    Button addGroceryFragment, inventoryButton, shoppingListButton, wasteStatButton;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +57,14 @@ public class AppFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_appFragment_to_shoppingListFragment);
+            }
+        });
+
+        wasteStatButton = view.findViewById(R.id.wasteStatButton);
+        wasteStatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_appFragment_to_wasteStatFragment);
             }
         });
 

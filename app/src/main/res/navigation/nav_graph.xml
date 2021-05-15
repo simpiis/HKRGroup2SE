@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_appFragment_to_shoppingListFragment"
             app:destination="@id/shoppingListFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_wasteStatFragment"
+            app:destination="@id/wasteStatFragment" />
     </fragment>
     <fragment
         android:id="@+id/addGroceriesFragment"
@@ -66,6 +69,9 @@
         <action
             android:id="@+id/action_inventoryFragment_to_appFragment"
             app:destination="@id/appFragment" />
+        <action
+            android:id="@+id/action_inventoryFragment_to_myGroceriesFragment"
+            app:destination="@id/myGroceriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/scannerFragment"
@@ -92,5 +98,23 @@
         android:label="fragment_manage_shopping_list"
         tools:layout="@layout/fragment_manage_shopping_list" >
         <argument android:name="shoppingList" />
+    </fragment>
+    <fragment
+        android:id="@+id/wasteStatFragment"
+        android:name="com.example.hkrgroup2se.Fragments.WasteStatFragment"
+        android:label="fragment_waste_stat"
+        tools:layout="@layout/fragment_waste_stat" >
+        <action
+            android:id="@+id/action_wasteStatFragment_to_appFragment"
+            app:destination="@id/appFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/myGroceriesFragment"
+        android:name="com.example.hkrgroup2se.Fragments.MyGroceriesFragment"
+        android:label="fragment_my_groceries"
+        tools:layout="@layout/fragment_my_groceries" >
+        <action
+            android:id="@+id/action_myGroceriesFragment_to_inventoryFragment"
+            app:destination="@id/inventoryFragment" />
     </fragment>
 </navigation>
