@@ -1,5 +1,7 @@
 package com.example.hkrgroup2se.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +31,8 @@ import java.util.Map;
 public class AppFragment extends Fragment {
     Button addGroceryFragment, inventoryButton, shoppingListButton, wasteStatButton, logOut;
     EditText email;
+    private SharedPreferences sharedPref;
+    Context context;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +45,11 @@ public class AppFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_app, container, false);
         email = view.findViewById(R.id.LoggedInUser);
         checkCurrentUser();
+
+        //Shared preferences
+        context = getActivity();
+        sharedPref = context.getSharedPreferences("settings", context.MODE_PRIVATE);
+
         inventoryButton = view.findViewById(R.id.inventoryButton);
         inventoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,11 +86,13 @@ public class AppFragment extends Fragment {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putBoolean("rememberMe", false);
+                editor.commit();
                 FirebaseAuth.getInstance().signOut();
                 Navigation.findNavController(view).navigate(R.id.action_appFragment_to_homeFragment);
             }
         });
-
 
 
         return view;

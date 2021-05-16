@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_appFragment"
             app:destination="@id/appFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -116,5 +119,18 @@
         <action
             android:id="@+id/action_myGroceriesFragment_to_inventoryFragment"
             app:destination="@id/inventoryFragment" />
+        <action
+            android:id="@+id/action_appFragment_pop"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.hkrgroup2se.Fragments.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_pop"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
 </navigation>
