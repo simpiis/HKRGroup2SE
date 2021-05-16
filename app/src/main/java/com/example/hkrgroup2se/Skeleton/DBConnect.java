@@ -26,6 +26,7 @@ public class DBConnect<T> {
     private static DBConnect single_instance = null;
     private static Security security = new Security();
 
+
     public static DBConnect getInstance() {
         if (single_instance == null) {
             single_instance = new DBConnect();
@@ -116,6 +117,58 @@ public class DBConnect<T> {
                     if (email.equals(hashedEmail)) {
                         databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/");
                         databaseReference.push().setValue(ld);
+
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void addToShoppingList(String key,String itemName,String itemAmount,String itemComment){
+        ShoppingListItem item = new ShoppingListItem(itemName,itemAmount,itemComment);
+        Map info = new HashMap();
+        info.put("Item",item);
+        FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String hashedEmail = security.hashString(getCurrentUser.getEmail());
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)) {
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/"+key+"/Items");
+                        databaseReference.push().setValue(item);
+
+                        break;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void modifyShoppingListItem(String key1,String key2, String itemName, String itemAmount, String itemComment){
+        ShoppingListItem item = new ShoppingListItem(itemName,itemAmount,itemComment);
+        Map info = new HashMap();
+        info.put("Item",item);
+        FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String hashedEmail = security.hashString(getCurrentUser.getEmail());
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)) {
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/"+key1+"/Items/"+key2);
+                        databaseReference.setValue(item);
 
                         break;
                     }

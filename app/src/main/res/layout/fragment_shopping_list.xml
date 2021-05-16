@@ -16,7 +16,7 @@
         android:layout_marginTop="10dp"
         android:text="+"
 
-        app:backgroundTint="#7D10FA"></Button>
+        app:backgroundTint="#7D10FA" />
 
     <ListView
         android:id="@+id/shoppingListView"

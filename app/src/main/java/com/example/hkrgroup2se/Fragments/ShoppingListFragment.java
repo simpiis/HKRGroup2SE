@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 
 public class ShoppingListFragment extends Fragment {
@@ -65,6 +66,7 @@ public class ShoppingListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dbConnect.setShoppingListTitle();
+                reloadData();
             }
         });
 
@@ -86,6 +88,9 @@ public class ShoppingListFragment extends Fragment {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(arrayAdapter!=null) {
+                    arrayAdapter.clear();
+                }
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String email = ds.child("Email").getValue().toString();
                     if (email.equals(hashedEmail)) {
@@ -96,12 +101,12 @@ public class ShoppingListFragment extends Fragment {
                                 ArrayList<ListDate> shoppingLists = new ArrayList<>();
                                 for (DataSnapshot snap : snapshot.getChildren()) {
                                     ListDate listTitle = snap.getValue(ListDate.class);
-                                    System.out.println(listTitle.getDate()+" swag");
                                     shoppingLists.add(listTitle);
                                     keys.add(snap.getKey());
 
                                 }
-
+                                Collections.reverse(shoppingLists);
+                                Collections.reverse(keys);
                                 for (ListDate g : shoppingLists) {
                                     arrayAdapter.insert(g.getDate(), arrayAdapter.getCount());
                                 }
@@ -123,4 +128,50 @@ public class ShoppingListFragment extends Fragment {
         });
         return view;
     }
+    void reloadData(){
+        arrayAdapter.clear();
+        String hashedEmail = dbConnect.getCurrentHash();
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)) {
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists");
+                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                ArrayList<ListDate> shoppingLists = new ArrayList<>();
+                                for (DataSnapshot snap : snapshot.getChildren()) {
+                                    ListDate listTitle = snap.getValue(ListDate.class);
+                                    shoppingLists.add(listTitle);
+                                    keys.add(snap.getKey());
+
+                                }
+                                Collections.reverse(shoppingLists);
+                                Collections.reverse(keys);
+                                for (ListDate g : shoppingLists) {
+                                    arrayAdapter.insert(g.getDate(), arrayAdapter.getCount());
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
+
+
 }

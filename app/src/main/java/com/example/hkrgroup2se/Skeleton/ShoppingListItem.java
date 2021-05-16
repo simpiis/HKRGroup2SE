@@ -1,18 +1,28 @@
 package com.example.hkrgroup2se.Skeleton;
 
 public class ShoppingListItem {
-    String name;
-    String amount;
+    String itemName;
+    String itemAmount;
+    String itemComment;
 
-    ShoppingListItem(String name, String amount){
-        this.name=name;
-        this.amount=amount;
+    ShoppingListItem(String itemName, String itemAmount,String itemComment){
+        this.itemName=itemName;
+        this.itemAmount=itemAmount;
+        this.itemComment=itemComment;
+    }
+    ShoppingListItem(){
+
     }
 
-    public String getName(){
-        return name;
+    public String getItemName() {
+        return itemName;
     }
-    public String getAmount(){
-        return amount;
+
+    public String getItemAmount() {
+        return itemAmount;
+    }
+
+    public String getItemComment() {
+        return itemComment;
     }
 }
