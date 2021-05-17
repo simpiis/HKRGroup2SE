@@ -126,7 +126,7 @@ public class MyGroceriesFragment extends Fragment {
                                             Grocery grocery1 = ds.getValue(Grocery.class);
                                             if (grocery.getName().equals(grocery1.getName()) && grocery.getBrand().equals(grocery1.getBrand()) && grocery.getPrize() == grocery1.getPrize()
                                                     && grocery.getTypeOfAmount().equals(grocery1.getTypeOfAmount()) && grocery.getAmount().equals(grocery1.getAmount()) && grocery.getBestBefore().equals(grocery1.getBestBefore())) {
-                                                String key = snapshot.getKey();
+                                                String key = ds.getKey();
                                                 databaseReference.child(key).removeValue();
                                                 break;
 
@@ -182,7 +182,7 @@ public class MyGroceriesFragment extends Fragment {
                                             Grocery grocery1 = ds.getValue(Grocery.class);
                                             if (grocery.getName().equals(grocery1.getName()) && grocery.getBrand().equals(grocery1.getBrand()) && grocery.getPrize() == grocery1.getPrize()
                                                     && grocery.getTypeOfAmount().equals(grocery1.getTypeOfAmount()) && grocery.getAmount().equals(grocery1.getAmount()) && grocery.getBestBefore().equals(grocery1.getBestBefore())) {
-                                                String key = snapshot.getKey();
+                                                String key = ds.getKey();
                                                 databaseReference.child(key).removeValue();
                                                 break;
                                             }
