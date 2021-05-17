@@ -21,6 +21,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hkrgroup2se.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -99,7 +100,13 @@ public class HomeFragment extends Fragment {
                             setAutoLogin();
                             Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_appFragment);
                         } else {
-                            // TODO: ERROR MESSAGE
+                            String error = task.getException().getClass().toString();
+                            Log.i("HomeFragment ", error);
+                            if (error.matches("class com.google.firebase.auth.FirebaseAuthInvalidCredentialsException")) {
+                                Toast.makeText(context, "Incorrect email or password", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "Authentication error", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });

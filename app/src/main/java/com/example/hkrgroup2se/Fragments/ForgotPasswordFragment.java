@@ -54,11 +54,14 @@ public class ForgotPasswordFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    Log.d(TAG, "Email sent.");
+                                    Log.i(TAG, "Email sent to " + email);
                                     Toast.makeText(getActivity(),
                                             "Email sent to " + email,
                                             Toast.LENGTH_SHORT).show();
                                     Navigation.findNavController(view).navigate(R.id.action_forgotPasswordFragment_pop);
+                                } else {
+                                    Log.i(TAG, task.getException().toString());
+                                    Toast.makeText(getActivity(), "Please verify the entered email address", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
