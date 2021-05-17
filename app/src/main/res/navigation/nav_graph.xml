@@ -70,8 +70,9 @@
         android:label="fragment_inventory"
         tools:layout="@layout/fragment_inventory" >
         <action
-            android:id="@+id/action_inventoryFragment_to_appFragment"
-            app:destination="@id/appFragment" />
+            android:id="@+id/action_inventoryFragment_pop"
+            app:popUpTo="@id/appFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_inventoryFragment_to_myGroceriesFragment"
             app:destination="@id/myGroceriesFragment" />
@@ -118,10 +119,11 @@
         tools:layout="@layout/fragment_my_groceries" >
         <action
             android:id="@+id/action_myGroceriesFragment_to_inventoryFragment"
-            app:destination="@id/inventoryFragment" />
+            app:destination="@id/inventoryFragment"
+            app:popUpTo="@id/inventoryFragment" />
         <action
-            android:id="@+id/action_appFragment_pop"
-            app:popUpTo="@id/homeFragment"
+            android:id="@+id/action_myGroceriesFragment_pop"
+            app:popUpTo="@id/inventoryFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment

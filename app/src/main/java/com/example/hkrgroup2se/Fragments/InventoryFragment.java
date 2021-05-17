@@ -12,16 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.DBConnect;
 import com.example.hkrgroup2se.Skeleton.Grocery;
 import com.example.hkrgroup2se.Skeleton.Inventory;
+import com.example.hkrgroup2se.Skeleton.InventoryAdapter;
 import com.example.hkrgroup2se.Skeleton.Security;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,18 +28,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class InventoryFragment extends Fragment {
 
     DBConnect dbConnect = DBConnect.getInstance();
     Inventory inventory = Inventory.getInstance();
-    ArrayList<String> groceryList = new ArrayList<>();
-    ArrayAdapter arrayAdapter;
+    ArrayList<Grocery> groceryList = new ArrayList<>();
+    InventoryAdapter arrayAdapter;
     ListView groceryListView;
     Security security = new Security();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
+    FloatingActionButton inventoryBackButton;
 
     public InventoryFragment() {
 
@@ -56,10 +55,16 @@ public class InventoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inventory, container, false);
+        inventoryBackButton = view.findViewById(R.id.inventoryBackButton);
 
         groceryListView = view.findViewById(R.id.grocerListView);
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, groceryList);
+        arrayAdapter = new InventoryAdapter(getActivity(), groceryList);
         groceryListView.setAdapter(arrayAdapter);
+
+        //If back button from another fragment, clear list
+        if (groceryList.size() > 0) {
+            groceryList.clear();
+        }
 
         String hashedEmail = dbConnect.getCurrentHash();
         databaseReference = database.getReference("User");
@@ -70,17 +75,13 @@ public class InventoryFragment extends Fragment {
                     String email = ds.child("Email").getValue().toString();
                     if (email.equals(hashedEmail)) {
                         databaseReference = database.getReference("User/" + ds.getKey() + "/Inventory");
-                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        databaseReference.orderByChild("bestBefore")
+                                .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList<Grocery> groceries = new ArrayList<>();
                                 for (DataSnapshot snap : snapshot.getChildren()) {
                                     Grocery grocery = snap.getValue(Grocery.class);
-                                    groceries.add(grocery);
-                                }
-                                for (Grocery g : groceries) {
-                                    String show = g.getName() + ", " + g.getBrand() + ", " + g.getBestBefore();
-                                    arrayAdapter.insert(show, arrayAdapter.getCount());
+                                    arrayAdapter.insert(grocery, arrayAdapter.getCount());
                                 }
                             }
 
@@ -106,6 +107,14 @@ public class InventoryFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_inventoryFragment_to_myGroceriesFragment, bundle);
             }
         });
+
+        inventoryBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_inventoryFragment_pop);
+            }
+        });
+
         return view;
     }
 }
