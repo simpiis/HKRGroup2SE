@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
-        android:hint="Prize"
-        android:inputType="textPersonName"
+        android:hint="Price"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/amount"
         app:layout_constraintStart_toStartOf="@+id/amount"
         app:layout_constraintTop_toBottomOf="@+id/amount" />
@@ -67,7 +67,7 @@
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Amount"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/typeOfAmount"
         app:layout_constraintStart_toStartOf="@+id/typeOfAmount"
         app:layout_constraintTop_toBottomOf="@+id/typeOfAmount" />
@@ -103,16 +103,17 @@
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextExpirationDate" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editTextExpirationDate"
         android:layout_width="191dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Select expiration date"
+        android:focusable="false"
         app:layout_constraintEnd_toEndOf="@+id/datePicker1"
         app:layout_constraintStart_toStartOf="@+id/datePicker1"
         app:layout_constraintTop_toBottomOf="@+id/price" />
