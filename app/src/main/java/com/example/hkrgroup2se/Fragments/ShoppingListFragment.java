@@ -1,5 +1,7 @@
 package com.example.hkrgroup2se.Fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -41,6 +43,7 @@ public class ShoppingListFragment extends Fragment {
     ArrayAdapter arrayAdapter;
     ArrayList<ShoppingListItem> list = new ArrayList<>();
     Button newListButton;
+    int removePosition;
 
     ArrayList<String> keys = new ArrayList<>();
 
@@ -59,6 +62,23 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        AlertDialog.Builder removeAlert = new AlertDialog.Builder(getContext());
+        removeAlert.setTitle("Remove shopping list?");
+        removeAlert.setPositiveButton("Remove List", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbConnect.removeShoppingList(keys.get(removePosition));
+                reloadData();
+
+            }
+        });
+        removeAlert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing. this just adds a cancel button in case the user wants to cancel or not click outside the box to close it down
+            }
+        });
+
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
         newListButton = view.findViewById(R.id.newListButton);
@@ -79,6 +99,14 @@ public class ShoppingListFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString("key", keys.get(position));
                 Navigation.findNavController(view).navigate(R.id.action_shoppingListFragment_to_manageShoppingListFragment,bundle);
+            }
+        });
+        shoppingListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                removePosition=position;
+                removeAlert.show();
+                return false;
             }
         });
 

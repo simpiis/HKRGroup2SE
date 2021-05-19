@@ -8,7 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,9 +79,9 @@ public class ManageShoppingListFragment extends Fragment {
         itemAmount.setInputType(InputType.TYPE_CLASS_TEXT);
         itemAmount.setHint("Amount. Pieces gram etc.");
         EditText itemComment = new EditText(getContext());
+        itemComment.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
         itemComment.setInputType(InputType.TYPE_CLASS_TEXT);
         itemComment.setHint("Item comment");
-
         LinearLayout layout = new LinearLayout(getContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(itemName);
@@ -86,7 +89,7 @@ public class ManageShoppingListFragment extends Fragment {
         layout.addView(itemComment);
         alert.setView(layout);
 
-
+        // for item click, manage item,
         AlertDialog.Builder alert2 = new AlertDialog.Builder(getContext());
         alert2.setTitle("Modify item");
         EditText itemNameMod = new EditText(getContext());
@@ -97,6 +100,7 @@ public class ManageShoppingListFragment extends Fragment {
         itemAmountMod.setHint("Amount. Pieces gram etc.");
         EditText itemCommentMod = new EditText(getContext());
         itemCommentMod.setInputType(InputType.TYPE_CLASS_TEXT);
+        itemCommentMod.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
         itemCommentMod.setHint("Item comment");
         LinearLayout layout2 = new LinearLayout(getContext());
         layout2.setOrientation(LinearLayout.VERTICAL);
@@ -104,15 +108,40 @@ public class ManageShoppingListFragment extends Fragment {
         layout2.addView(itemAmountMod);
         layout2.addView(itemCommentMod);
 
+        // for long click, remove item
+        AlertDialog.Builder alert3 = new AlertDialog.Builder(getContext());
+        alert3.setTitle("Remove Item?");
+        alert3.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // remove item from db
+                dbConnect.removeShoppingListItem(key,keylist.get(globalpos));
+                reloadItems();
+
+            }
+        });
+        alert3.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
 
         alert2.setPositiveButton("Save changes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                String itemNM = itemNameMod.getText().toString();
+                String itemAM = itemAmountMod.getText().toString();
+                Log.e("tag",itemNM +" --------- "+itemAM);
+                if(!itemNM.trim().equals("")&& !itemAM.trim().equals("")){
                 dbConnect.modifyShoppingListItem(key,keylist.get(globalpos),itemNameMod.getText().toString(),itemAmountMod.getText().toString(),itemCommentMod.getText().toString());
                 reloadItems();
                 ((ViewGroup)layout2.getParent()).removeView(layout2);
-
+            } else{
+                    ((ViewGroup)layout2.getParent()).removeView(layout2);
+                    Toast.makeText(getContext(),"Must have name and amount",Toast.LENGTH_LONG).show();
+                }
             }
         });
         alert2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -127,13 +156,22 @@ public class ManageShoppingListFragment extends Fragment {
         alert.setPositiveButton("Add item", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dbConnect.addToShoppingList(key, itemName.getText().toString(), itemAmount.getText().toString(), itemComment.getText().toString());
-                Toast.makeText(getContext(), "Added Item (hopefully)", Toast.LENGTH_LONG).show();
-                itemName.getText().clear();
-                itemAmount.getText().clear();
-                itemComment.getText().clear();
-                reloadItems();
-                ((ViewGroup)layout.getParent()).removeView(layout);
+                String itemN = itemName.getText().toString();
+                String itemA = itemAmount.getText().toString();
+                Log.e("tag",itemN +" --------- "+itemA);
+                if(!itemN.trim().equals("")&& !itemA.trim().equals("")) {
+                    dbConnect.addToShoppingList(key, itemName.getText().toString(), itemAmount.getText().toString(), itemComment.getText().toString());
+                    Toast.makeText(getContext(), "Added Item ", Toast.LENGTH_LONG).show();
+                    itemName.getText().clear();
+                    itemAmount.getText().clear();
+                    itemComment.getText().clear();
+                    reloadItems();
+                    ((ViewGroup) layout.getParent()).removeView(layout);
+
+                }else{
+                    ((ViewGroup)layout.getParent()).removeView(layout);
+                    Toast.makeText(getContext(),"Must have name and amount",Toast.LENGTH_LONG).show();
+                }
             }
         });
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -176,12 +214,24 @@ public class ManageShoppingListFragment extends Fragment {
             }
         });
 
+        shoppingListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                globalpos=position;
+                alert3.show();
+                return false;
+            }
+        });
+
+
 
         String hashedEmail = dbConnect.getCurrentHash();
         databaseReference = database.getReference("User");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                global.clear();
+                keylist.clear();
                 if(arrayAdapter!=null) {
                     arrayAdapter.clear();
                 }
@@ -230,6 +280,8 @@ public class ManageShoppingListFragment extends Fragment {
     }
 
     void reloadItems(){
+        global.clear();
+        keylist.clear();
         String hashedEmail = dbConnect.getCurrentHash();
         databaseReference = database.getReference("User");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {

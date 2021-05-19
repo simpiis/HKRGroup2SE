@@ -39,7 +39,7 @@ public class DBConnect<T> {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public String getCurrentHash(){
+    public String getCurrentHash() {
         FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         return security.hashString(getCurrentUser.getEmail());
     }
@@ -69,43 +69,44 @@ public class DBConnect<T> {
                         }
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }
             });
 
-        } else if (info instanceof Waste){
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        String hashedEmail = security.hashString(currentUser.getEmail());
-        databaseReference = database.getReference("User");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()){
-                    String email = ds.child("Email").getValue().toString();
-                    if (email.equals(hashedEmail)){
-                        databaseReference = database.getReference("User/" + ds.getKey() + "/Waste");
-                        databaseReference.push().setValue(info);
-                        break;
+        } else if (info instanceof Waste) {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            String hashedEmail = security.hashString(currentUser.getEmail());
+            databaseReference = database.getReference("User");
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String email = ds.child("Email").getValue().toString();
+                        if (email.equals(hashedEmail)) {
+                            databaseReference = database.getReference("User/" + ds.getKey() + "/Waste");
+                            databaseReference.push().setValue(info);
+                            break;
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-    }
+                }
+            });
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void setShoppingListTitle(){
+    public void setShoppingListTitle() {
         Calendar calendar = Calendar.getInstance();
         String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         ListDate ld = new ListDate(currentDate);
         Map info = new HashMap();
-        info.put("Title",ld);
+        info.put("Title", ld);
         FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String hashedEmail = security.hashString(getCurrentUser.getEmail());
         databaseReference = database.getReference("User");
@@ -122,16 +123,18 @@ public class DBConnect<T> {
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void addToShoppingList(String key,String itemName,String itemAmount,String itemComment){
-        ShoppingListItem item = new ShoppingListItem(itemName,itemAmount,itemComment);
+    public void addToShoppingList(String key, String itemName, String itemAmount, String itemComment) {
+        ShoppingListItem item = new ShoppingListItem(itemName, itemAmount, itemComment);
         Map info = new HashMap();
-        info.put("Item",item);
+        info.put("Item", item);
         FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String hashedEmail = security.hashString(getCurrentUser.getEmail());
         databaseReference = database.getReference("User");
@@ -141,23 +144,25 @@ public class DBConnect<T> {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String email = ds.child("Email").getValue().toString();
                     if (email.equals(hashedEmail)) {
-                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/"+key+"/Items");
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/" + key + "/Items");
                         databaseReference.push().setValue(item);
 
                         break;
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public void modifyShoppingListItem(String key1,String key2, String itemName, String itemAmount, String itemComment){
-        ShoppingListItem item = new ShoppingListItem(itemName,itemAmount,itemComment);
+    public void modifyShoppingListItem(String key1, String key2, String itemName, String itemAmount, String itemComment) {
+        ShoppingListItem item = new ShoppingListItem(itemName, itemAmount, itemComment);
         Map info = new HashMap();
-        info.put("Item",item);
+        info.put("Item", item);
         FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String hashedEmail = security.hashString(getCurrentUser.getEmail());
         databaseReference = database.getReference("User");
@@ -167,17 +172,70 @@ public class DBConnect<T> {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     String email = ds.child("Email").getValue().toString();
                     if (email.equals(hashedEmail)) {
-                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/"+key1+"/Items/"+key2);
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/" + key1 + "/Items/" + key2);
                         databaseReference.setValue(item);
 
                         break;
                     }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
 
+    //for removing an item inside of a shoppinglist ie. köttfärs
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void removeShoppingListItem(String key1,String key2) {
+        FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String hashedEmail = security.hashString(getCurrentUser.getEmail());
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)) {                                                                    //key1                          //key2
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/" + key1+"/Items/"+key2);
+                        databaseReference.removeValue();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
+
+    //for removing an entire shoppinglist
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public void removeShoppingList(String key) {
+        FirebaseUser getCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String hashedEmail = security.hashString(getCurrentUser.getEmail());
+        databaseReference = database.getReference("User");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String email = ds.child("Email").getValue().toString();
+                    if (email.equals(hashedEmail)) {
+                        databaseReference = database.getReference("User/" + ds.getKey() + "/ShoppingLists/"+key);
+                        databaseReference.removeValue();
+
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+    }
 }
