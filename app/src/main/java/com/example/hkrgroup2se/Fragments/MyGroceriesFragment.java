@@ -85,7 +85,7 @@ public class MyGroceriesFragment extends Fragment {
                                 }
 
                                 nameOfGrocery.setText(arrayList.get(pos).getName());
-                                priceOfGrocery.setText(String.valueOf(arrayList.get(pos).getPrize()));
+                                priceOfGrocery.setText(String.valueOf(arrayList.get(pos).getPrize()) + "kr");
                                 amountValue.setText(arrayList.get(pos).getAmount() + " " + arrayList.get(pos).getTypeOfAmount() );
                             }
 

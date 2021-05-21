@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/appbackground"
+    android:background="@drawable/background"
     tools:context=".Fragments.MyGroceriesFragment">
 
     <TextView
@@ -14,9 +14,12 @@
         android:layout_marginStart="174dp"
         android:layout_marginLeft="174dp"
         android:layout_marginTop="117dp"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_marginEnd="179dp"
         android:layout_marginRight="179dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,9 +31,12 @@
         android:layout_marginStart="175dp"
         android:layout_marginLeft="175dp"
         android:layout_marginTop="21dp"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_marginEnd="178dp"
         android:layout_marginRight="178dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameOfGrocery" />
@@ -43,42 +49,58 @@
         android:layout_marginLeft="175dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="178dp"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:typeface="serif"
         android:layout_marginRight="178dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/priceOfGrocery" />
 
     <Button
         android:id="@+id/consumedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginBottom="280dp"
+        android:layout_width="220dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="90dp"
+        android:gravity="center"
         android:text="Consume"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amountValue" />
 
     <Button
         android:id="@+id/trashButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="283dp"
+        android:layout_width="105dp"
+        android:layout_height="55dp"
+        android:gravity="center"
         android:text="Waste"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/freezeButton"
-        app:layout_constraintStart_toEndOf="@+id/consumedButton" />
+        app:layout_constraintStart_toStartOf="@+id/consumedButton"
+        app:layout_constraintTop_toBottomOf="@+id/consumedButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/freezeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="29dp"
-        android:layout_marginRight="29dp"
-        android:layout_marginBottom="282dp"
+        android:layout_width="105dp"
+        android:layout_height="55dp"
+        android:gravity="center"
         android:text="Freeze"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        app:layout_constraintBottom_toBottomOf="@+id/trashButton"
+        app:layout_constraintEnd_toEndOf="@+id/consumedButton"
+        app:layout_constraintTop_toBottomOf="@+id/consumedButton"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

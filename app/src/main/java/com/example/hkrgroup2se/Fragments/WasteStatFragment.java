@@ -25,21 +25,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
 public class WasteStatFragment extends Fragment {
 
     Button backButton;
-    TextView moneyText, amountText;
+    TextView moneyText, amountText, infoText;
     DBConnect dbConnect = DBConnect.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     ArrayList<Waste> wasteArrayList = new ArrayList<>();
     double totalWaste, totalMoney;
     String monthChosen, yearChosen;
-    AutoCompleteTextView month;
     NumberPicker pickerMonth, pickerYear;
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
     private static final String[] MONTHS = new String[]{
             "-", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "All months"
     };
@@ -64,6 +65,7 @@ public class WasteStatFragment extends Fragment {
         amountText = view.findViewById(R.id.amountText);
         pickerMonth = view.findViewById(R.id.pickMonth);
         pickerYear = view.findViewById(R.id.pickYear);
+        infoText = view.findViewById(R.id.infoWasted);
 
 
         pickerMonth.setMaxValue(MONTHS.length - 1);
@@ -94,6 +96,12 @@ public class WasteStatFragment extends Fragment {
             }
         });
 
+        infoText.setText("Amount wasted in");
+        if (yearChosen == null && monthChosen == null){
+            moneyText.setText("Please choose a Date");
+            amountText.setText("Down below");
+        }
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,13 +127,6 @@ public class WasteStatFragment extends Fragment {
                                     Waste waste = ds.getValue(Waste.class);
                                     wasteArrayList.add(waste);
                                 }
-
-                                if (yearChosen == null && monthChosen == null){
-                                    moneyText.setText("Please choose a Date");
-                                    amountText.setText("Down below");
-                                }
-
-
                             }
 
                             @Override
@@ -172,9 +173,15 @@ public class WasteStatFragment extends Fragment {
                     }
                 }
             }
-            moneyText.setText(String.valueOf(totalMoney));
-            amountText.setText(totalWaste + "kg");
+            if (monthChosen.equals("All months")){
+                infoText.setText("Amount wasted in " + monthChosen.toLowerCase() +" " + yearChosen);
+            }else{
+                infoText.setText("Amount wasted in " + monthChosen +" " + yearChosen);
+            }
+            moneyText.setText(decimalFormat.format(totalMoney) + "kr");
+            amountText.setText(decimalFormat.format(totalWaste)+ "kg");
         }else {
+            infoText.setText("Amount wasted in ");
             moneyText.setText("Please choose a Date");
             amountText.setText("Down below");
         }
