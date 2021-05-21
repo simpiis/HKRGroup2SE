@@ -106,7 +106,7 @@ public class ShoppingListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 removePosition=position;
                 removeAlert.show();
-                return false;
+                return true;
             }
         });
 

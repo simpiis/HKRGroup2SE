@@ -87,7 +87,7 @@ public class ManageShoppingListFragment extends Fragment {
         layout.addView(itemName);
         layout.addView(itemAmount);
         layout.addView(itemComment);
-        alert.setView(layout);
+        alert.setCancelable(false);
 
         // for item click, manage item,
         AlertDialog.Builder alert2 = new AlertDialog.Builder(getContext());
@@ -107,6 +107,7 @@ public class ManageShoppingListFragment extends Fragment {
         layout2.addView(itemNameMod);
         layout2.addView(itemAmountMod);
         layout2.addView(itemCommentMod);
+        alert2.setCancelable(false);
 
         // for long click, remove item
         AlertDialog.Builder alert3 = new AlertDialog.Builder(getContext());
@@ -169,7 +170,9 @@ public class ManageShoppingListFragment extends Fragment {
                     ((ViewGroup) layout.getParent()).removeView(layout);
 
                 }else{
-                    ((ViewGroup)layout.getParent()).removeView(layout);
+                    if(layout.getParent()!=null) {
+                        ((ViewGroup) layout.getParent()).removeView(layout);
+                    }
                     Toast.makeText(getContext(),"Must have name and amount",Toast.LENGTH_LONG).show();
                 }
             }
@@ -178,7 +181,9 @@ public class ManageShoppingListFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                ((ViewGroup)layout.getParent()).removeView(layout);
+                if(layout.getParent()!=null) {
+                    ((ViewGroup) layout.getParent()).removeView(layout);
+                }
             }
         });
         // end of add item popup
@@ -191,6 +196,9 @@ public class ManageShoppingListFragment extends Fragment {
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(layout.getParent() != null) {
+                    ((ViewGroup) layout.getParent()).removeView(layout);
+                }
                 alert.setView(layout);
                 alert.show();
 
@@ -219,7 +227,7 @@ public class ManageShoppingListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 globalpos=position;
                 alert3.show();
-                return false;
+                return true;
             }
         });
 
