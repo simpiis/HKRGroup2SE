@@ -57,7 +57,7 @@
         android:layout_width="337dp"
         android:layout_height="61dp"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginTop="96dp"
         android:layout_marginEnd="37dp"
         android:gravity="center"
         android:text="Consume"
@@ -66,7 +66,6 @@
         android:typeface="serif"
         app:backgroundTint="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amountValue" />
 
