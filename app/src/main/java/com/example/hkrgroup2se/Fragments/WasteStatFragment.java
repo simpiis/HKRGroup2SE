@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.DBConnect;
 import com.example.hkrgroup2se.Skeleton.Waste;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 
 public class WasteStatFragment extends Fragment {
 
-    Button backButton;
+    FloatingActionButton backButton;
     TextView moneyText, amountText, infoText;
     DBConnect dbConnect = DBConnect.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -60,7 +61,7 @@ public class WasteStatFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_waste_stat, container, false);
-        backButton = view.findViewById(R.id.backButton);
+        backButton = view.findViewById(R.id.wasteStatBack);
         moneyText = view.findViewById(R.id.moneyText);
         amountText = view.findViewById(R.id.amountText);
         pickerMonth = view.findViewById(R.id.pickMonth);
