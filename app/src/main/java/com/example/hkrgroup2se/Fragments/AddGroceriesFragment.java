@@ -43,13 +43,25 @@ public class AddGroceriesFragment extends Fragment {
     private static final String TAG = "AddGroceriesFragment";
 
     private static final String[] BRANDS = new String[]{
-            "OLW", "Skånemejerier", "Pågen", "Felix", "Apetit", "Findus", "ICA", "COOP", "ELDORADO"
+            "OLW", "Skånemejerier", "Pågen", "Felix", "Apetit", "Findus", "ICA", "COOP", "ELDORADO", "GB",
+            "AXA", "Billys", "Bob", "Bravo", "Arla", "Schär", "Fria", "Önos", "K-salat", "Kavli",
+            "Gorby's", "Dafgård", "Garant", "Fazer", "Estrella", "Gevalia", "Zoegas",
+            "Ekströms", "Euro shopper", "Fanta", "Coca-Cola", "Carlsberg", "Ramlösa",
+            "Loka", "Festis", "Flora", "God Morgon", "Guldfågeln", "Häagen-Dazs", "Imsdal",
+            "Japp", "Jokk", "Kellogg's", "Knorr", "Kronfågel", "Kronjäst", "Kung Markatta",
+            "Kungsörnen", "Lambi", "L'Oréal", "Läkerol", "Lätta", "Löfbergs", "M&M's",
+            "Malaco", "Maltesers", "Marabou", "Mariekex", "Mars", "Marsán", "McVities",
+            "Mentos", "Mer", "Milda", "Nescafé", "Nivea", "Non stop", "Norrlands Guld",
+            "Nutella", "O’boy", "Old El Paso", "Pampers", "7 Up", "Pepsi", "Pepsodent",
+            "Polarbröd", "Pripps", "Pommac", "Red Bull", "Monster", "Risifrutti", "Santa Maria",
+            "Schwarzkopf", "Schweppes", "Semper", "Sia Glass", "Skona", "Slotts"
     };
     private static final String[] TYPEOFGROCERY = new String[]{
-            "Snacks",
+            "Snacks, godis & snacks", "Grill", "Kött, fågel & fisk", "Vegetariskt", "Mejeri, ost & ägg", "Frukt & grönt",
+            "Bröd & kakor", "Fryst", "Skafferi", "Färdigmat", "Dryck"
     };
     private static final String[] TYPEOFAMOUNT = new String[]{
-            "gram",
+            "gram", "kilogram", "hektogram", "liter", "deciliter", "milliliter"
     };
 
     AutoCompleteTextView brand, typeOfAmount, typeOfGrocery;
