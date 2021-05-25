@@ -28,6 +28,8 @@ import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.DBConnect;
 import com.example.hkrgroup2se.Skeleton.ListDate;
 import com.example.hkrgroup2se.Skeleton.ShoppingListItem;
+import com.example.hkrgroup2se.Skeleton.ShoppinglistItemAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,8 +41,6 @@ import java.util.ArrayList;
 
 public class ManageShoppingListFragment extends Fragment {
     String key;
-    String key1;
-    String key2;
     ArrayList<String> keylist = new ArrayList<>();
     ArrayList<ShoppingListItem> list = new ArrayList<>();
     ArrayList<ShoppingListItem> global = new ArrayList<>();
@@ -50,8 +50,9 @@ public class ManageShoppingListFragment extends Fragment {
     ListView shoppingListView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
-    ArrayAdapter arrayAdapter;
-    Button addItemButton;
+    ShoppinglistItemAdapter arrayAdapter;
+    FloatingActionButton addItemButton;
+    FloatingActionButton backButtonManage;
 
 
     public ManageShoppingListFragment() {
@@ -68,18 +69,19 @@ public class ManageShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+        arrayAdapter = new ShoppinglistItemAdapter(getActivity(),list);
         // for add item popup
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
         alert.setTitle("Add item");
         EditText itemName = new EditText(getContext());
         itemName.setInputType(InputType.TYPE_CLASS_TEXT);
+        itemName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
         itemName.setHint("Item name");
         EditText itemAmount = new EditText(getContext());
         itemAmount.setInputType(InputType.TYPE_CLASS_TEXT);
         itemAmount.setHint("Amount. Pieces gram etc.");
         EditText itemComment = new EditText(getContext());
-        itemComment.setFilters(new InputFilter[]{new InputFilter.LengthFilter(15)});
+        itemComment.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         itemComment.setInputType(InputType.TYPE_CLASS_TEXT);
         itemComment.setHint("Item comment");
         LinearLayout layout = new LinearLayout(getContext());
@@ -192,6 +194,14 @@ public class ManageShoppingListFragment extends Fragment {
         getKey();
         View view = inflater.inflate(R.layout.fragment_manage_shopping_list, container, false);
 
+        backButtonManage = view.findViewById(R.id.backButtonManageShoppinglist);
+        backButtonManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_manageShoppingListFragment_to_shoppingListFragment_pop);
+            }
+        });
+
         addItemButton = view.findViewById(R.id.addItemButton);
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,7 +270,7 @@ public class ManageShoppingListFragment extends Fragment {
                                 }
 
                                 for (ShoppingListItem g : shoppingLists) {
-                                    arrayAdapter.insert(g.getItemName() + ",  " + g.getItemAmount() + ", " + g.getItemComment(), arrayAdapter.getCount());
+                                    arrayAdapter.insert(g, arrayAdapter.getCount());
                                 }
                             }
 
@@ -315,7 +325,7 @@ public class ManageShoppingListFragment extends Fragment {
                                 }
 
                                 for (ShoppingListItem g : shoppingLists) {
-                                    arrayAdapter.insert(g.getItemName() + ",  " + g.getItemAmount() + ", " + g.getItemComment(), arrayAdapter.getCount());
+                                    arrayAdapter.insert(g, arrayAdapter.getCount());
                                 }
                             }
 

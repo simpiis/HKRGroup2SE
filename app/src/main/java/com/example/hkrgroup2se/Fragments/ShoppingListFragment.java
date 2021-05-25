@@ -22,6 +22,8 @@ import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.DBConnect;
 import com.example.hkrgroup2se.Skeleton.ListDate;
 import com.example.hkrgroup2se.Skeleton.ShoppingListItem;
+import com.example.hkrgroup2se.Skeleton.ShoppinglistAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,10 +42,11 @@ public class ShoppingListFragment extends Fragment {
     ListView shoppingListView;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
-    ArrayAdapter arrayAdapter;
-    ArrayList<ShoppingListItem> list = new ArrayList<>();
-    Button newListButton;
+    ShoppinglistAdapter arrayAdapter;
+    ArrayList<ListDate> list = new ArrayList<>();
+    FloatingActionButton newListButton;
     int removePosition;
+    FloatingActionButton backButtonShoppinglist;
 
     ArrayList<String> keys = new ArrayList<>();
 
@@ -62,6 +65,7 @@ public class ShoppingListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         AlertDialog.Builder removeAlert = new AlertDialog.Builder(getContext());
         removeAlert.setTitle("Remove shopping list?");
         removeAlert.setPositiveButton("Remove List", new DialogInterface.OnClickListener() {
@@ -80,6 +84,13 @@ public class ShoppingListFragment extends Fragment {
         });
 
         View view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
+        backButtonShoppinglist = view.findViewById(R.id.backButtonShoppinglist);
+        backButtonShoppinglist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_shoppingListFragment_to_appFragment_pop);
+            }
+        });
 
         newListButton = view.findViewById(R.id.newListButton);
         newListButton.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +102,7 @@ public class ShoppingListFragment extends Fragment {
         });
 
         shoppingListView = view.findViewById(R.id.shoppingListView);
-        arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, list);
+        arrayAdapter = new ShoppinglistAdapter(getActivity(), list);
         shoppingListView.setAdapter(arrayAdapter);
         shoppingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,7 +147,7 @@ public class ShoppingListFragment extends Fragment {
                                 Collections.reverse(shoppingLists);
                                 Collections.reverse(keys);
                                 for (ListDate g : shoppingLists) {
-                                    arrayAdapter.insert(g.getDate(), arrayAdapter.getCount());
+                                    arrayAdapter.insert(g, arrayAdapter.getCount());
                                 }
                             }
 
@@ -180,7 +191,7 @@ public class ShoppingListFragment extends Fragment {
                                 Collections.reverse(shoppingLists);
                                 Collections.reverse(keys);
                                 for (ListDate g : shoppingLists) {
-                                    arrayAdapter.insert(g.getDate(), arrayAdapter.getCount());
+                                    arrayAdapter.insert(g, arrayAdapter.getCount());
                                 }
                             }
 

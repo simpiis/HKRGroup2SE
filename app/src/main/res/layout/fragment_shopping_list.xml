@@ -4,32 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.ShoppingListFragment">
+    tools:context=".Fragments.ShoppingListFragment"
+    android:background="@drawable/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <Button
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
 
-        android:id="@+id/newListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="10dp"
-        android:text="New list"
+            android:id="@+id/newListButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            app:backgroundTint="#3F51B5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/backButtonShoppinglist"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_playlist_add_24"
+            tools:ignore="VectorDrawableCompat" />
 
-        app:backgroundTint="#7D10FA" />
+        <ListView
+            android:id="@+id/shoppingListView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="24dp"
+            android:cacheColorHint="#571CE1"
+            android:paddingBottom="10dp"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newListButton"
+            app:layout_constraintVertical_bias="0.0">
 
-    <ListView
-        android:id="@+id/shoppingListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/form"
-        android:layout_marginBottom="0dp"
-        android:cacheColorHint="#571CE1"
-        android:divider="@color/purple_500"
-        android:dividerHeight="10.0sp"
-        android:paddingBottom="10dp"
-        android:text="">
+        </ListView>
 
-    </ListView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/backButtonShoppinglist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            app:backgroundTint="#3F51B5"
+            app:srcCompat="@drawable/abc_vector_test"
+            app:layout_constraintBottom_toTopOf="@+id/shoppingListView"
+            app:layout_constraintEnd_toStartOf="@+id/newListButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </FrameLayout>

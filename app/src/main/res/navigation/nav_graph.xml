@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_shoppingListFragment_to_manageShoppingListFragment"
             app:destination="@id/manageShoppingListFragment" />
+        <action
+            android:id="@+id/action_shoppingListFragment_to_appFragment_pop"
+            app:popUpTo="@id/appFragment" />
     </fragment>
     <fragment
         android:id="@+id/manageShoppingListFragment"
@@ -103,6 +106,9 @@
         android:label="fragment_manage_shopping_list"
         tools:layout="@layout/fragment_manage_shopping_list" >
         <argument android:name="shoppingList" />
+        <action
+            android:id="@+id/action_manageShoppingListFragment_to_shoppingListFragment_pop"
+            app:popUpTo="@id/shoppingListFragment" />
     </fragment>
     <fragment
         android:id="@+id/wasteStatFragment"
