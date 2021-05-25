@@ -11,11 +11,9 @@
         android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
@@ -28,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="55dp"
         android:layout_marginRight="10dp"
         android:completionThreshold="0"
         android:hint="Brand"
@@ -100,11 +98,11 @@
         android:id="@+id/datePicker1"
         android:layout_width="238dp"
         android:layout_height="132dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="@+id/price"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/price"
         app:layout_constraintTop_toBottomOf="@+id/editTextExpirationDate" />
 
     <EditText
@@ -126,9 +124,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
         android:clickable="true"
         android:src="@drawable/ic_code_scanner_auto_focus_off"
+        app:backgroundTint="#3F51B5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
