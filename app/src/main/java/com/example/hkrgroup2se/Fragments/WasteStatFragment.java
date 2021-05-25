@@ -97,7 +97,7 @@ public class WasteStatFragment extends Fragment {
             }
         });
 
-        infoText.setText("Amount wasted in");
+
         if (yearChosen == null && monthChosen == null){
             moneyText.setText("Please choose a Date");
             amountText.setText("Down below");
@@ -182,7 +182,6 @@ public class WasteStatFragment extends Fragment {
             moneyText.setText(decimalFormat.format(totalMoney) + "kr");
             amountText.setText(decimalFormat.format(totalWaste)+ "kg");
         }else {
-            infoText.setText("Amount wasted in ");
             moneyText.setText("Please choose a Date");
             amountText.setText("Down below");
         }
