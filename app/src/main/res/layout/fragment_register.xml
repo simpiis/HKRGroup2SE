@@ -87,7 +87,8 @@
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="REGISTER"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        app:backgroundTint="#3F51B5" />
 
     <TextView
         android:id="@+id/gobackTextField"

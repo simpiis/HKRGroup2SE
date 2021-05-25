@@ -88,7 +88,8 @@
         android:background="@drawable/shapelogin"
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
-        android:text="Log In" />
+        android:text="Log In"
+        app:backgroundTint="#3F51B5" />
 
     <Button
         android:id="@+id/signupButton"
@@ -102,7 +103,8 @@
         android:padding="15dp"
         android:shadowColor="@android:color/transparent"
         android:text="Sign Up"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        app:backgroundTint="#3F51B5" />
 
 
 </LinearLayout>

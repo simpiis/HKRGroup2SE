@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context=".Fragments.AddGroceriesFragment">
 
     <EditText
@@ -90,6 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="Add Grocery"
+        app:backgroundTint="#3F51B5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/price"
         app:layout_constraintStart_toStartOf="@+id/price" />
@@ -111,9 +113,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:ems="10"
+        android:focusable="false"
         android:inputType="textPersonName"
         android:text="Select expiration date"
-        android:focusable="false"
         app:layout_constraintEnd_toEndOf="@+id/datePicker1"
         app:layout_constraintStart_toStartOf="@+id/datePicker1"
         app:layout_constraintTop_toBottomOf="@+id/price" />
