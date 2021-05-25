@@ -33,12 +33,12 @@ import java.util.ArrayList;
 public class WasteStatFragment extends Fragment {
 
     FloatingActionButton backButton;
-    TextView moneyText, amountText, infoText;
+    TextView moneyText, amountText, infoText, textViewL;
     DBConnect dbConnect = DBConnect.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseReference;
     ArrayList<Waste> wasteArrayList = new ArrayList<>();
-    double totalWaste, totalMoney;
+    double totalWasteK, totalMoney, totalWasteL;
     String monthChosen, yearChosen;
     NumberPicker pickerMonth, pickerYear;
     DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -67,6 +67,7 @@ public class WasteStatFragment extends Fragment {
         pickerMonth = view.findViewById(R.id.pickMonth);
         pickerYear = view.findViewById(R.id.pickYear);
         infoText = view.findViewById(R.id.infoWasted);
+        textViewL = view.findViewById(R.id.infoAmountL);
 
 
         pickerMonth.setMaxValue(MONTHS.length - 1);
@@ -99,8 +100,9 @@ public class WasteStatFragment extends Fragment {
 
 
         if (yearChosen == null && monthChosen == null){
-            moneyText.setText("Please choose a Date");
-            amountText.setText("Down below");
+            moneyText.setText("Please! ");
+            amountText.setText("Choose a Date");
+            textViewL.setText("Down below");
         }
 
 
@@ -152,24 +154,49 @@ public class WasteStatFragment extends Fragment {
     public void updateGui(String year, String month) {
         if (month != null && year != null  && !month.equals("-") && !year.equals("-")) {
             totalMoney = 0;
-            totalWaste = 0;
+            totalWasteK = 0;
+            totalWasteL = 0;
             if (!month.equals("All months")) {
                 for (int i = 0; i < wasteArrayList.size(); i++) {
-                    if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("Kilogram") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)) {
-                        totalWaste = totalWaste + Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste());
+                    if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("kilogram") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)) {
+                        totalWasteK = totalWasteK + Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste());
                         totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
                     } else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("gram") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)) {
-                        totalWaste = totalWaste + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.001);
+                        totalWasteK = totalWasteK + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.001);
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    }else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("hektogram") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteK = totalWasteK + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.1);
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    }else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("liter") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteL = totalWasteL + Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste());
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    } else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("deciliter") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteL = totalWasteL + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.1);
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    }else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("milliliter") && wasteArrayList.get(i).getWasteDate().contains(month) && wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteL = totalWasteL + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.001);
                         totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
                     }
                 }
             } else {
                 for (int i = 0; i < wasteArrayList.size(); i++) {
-                    if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("Kilogram") && wasteArrayList.get(i).getWasteDate().contains(year)) {
-                        totalWaste = totalWaste + Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste());
+                    if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("kilogram") && wasteArrayList.get(i).getWasteDate().contains(year)) {
+                        totalWasteK = totalWasteK + Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste());
                         totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
                     } else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("gram") && wasteArrayList.get(i).getWasteDate().contains(year)) {
-                        totalWaste = totalWaste + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.001);
+                        totalWasteK = totalWasteK + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.001);
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    }else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("hektogram") &&  wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteK = totalWasteK + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.1);
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    }else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("liter") &&  wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteL = totalWasteL + Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste());
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    } else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("deciliter") && wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteL = totalWasteL + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.1);
+                        totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
+                    }else if (wasteArrayList.get(i).getTypeOfAmountForWaste().equals("milliliter") && wasteArrayList.get(i).getWasteDate().contains(year)){
+                        totalWasteL = totalWasteL + (Double.parseDouble(wasteArrayList.get(i).getAmountOfWaste()) * 0.001);
                         totalMoney = totalMoney + wasteArrayList.get(i).getPriceOfWaste();
                     }
                 }
@@ -180,10 +207,12 @@ public class WasteStatFragment extends Fragment {
                 infoText.setText("Amount wasted in " + monthChosen +" " + yearChosen);
             }
             moneyText.setText(decimalFormat.format(totalMoney) + "kr");
-            amountText.setText(decimalFormat.format(totalWaste)+ "kg");
+            amountText.setText(decimalFormat.format(totalWasteK)+ "kg");
+            textViewL.setText(decimalFormat.format(totalWasteL)+ "L");
         }else {
-            moneyText.setText("Please choose a Date");
-            amountText.setText("Down below");
+            moneyText.setText("Please! ");
+            amountText.setText("Choose a Date");
+            textViewL.setText("Down below");
         }
     }
 }

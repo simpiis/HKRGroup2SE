@@ -89,4 +89,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/infoAmountL"
+        android:layout_width="193dp"
+        android:layout_height="23dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="@+id/amountText"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/amountText"
+        app:layout_constraintTop_toBottomOf="@+id/amountText" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
