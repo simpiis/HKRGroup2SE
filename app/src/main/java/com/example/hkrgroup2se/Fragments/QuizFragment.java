@@ -36,7 +36,7 @@ public class QuizFragment extends Fragment {
     Question question4 = new Question("What percentage of greenhouse gases is because of foodwaste","4%","3%","8%","8%");
     Question question5 = new Question("How much fruit and vegetables are thrown ?","1/5","1/2","1/10","1/2");
     Question question6 = new Question("Percentage wise, how much of the fresh water supply is wasted thanks to food waste.","5%","10%","25%","25%");
-    Question question7 = new Question("Food waste is the x solution to climate crisis","1","5","6","1");
+    Question question7 = new Question("Food waste is the number x solution to food crisis","1","5","6","1");
     Question question8 = new Question("Nearly x% of the worlds agriculture land is occupied to produce food that is thrown away","10%","21%","30%","30%");
     Question question9 = new Question("Throwing away 1 burger equates to a x minute shower", "30","90","60","90");
     Question question10 = new Question("What grocery has the highest wastage percentage?","bread","fruits","meat","fruits");
