@@ -64,6 +64,7 @@ public class InventoryFragment extends Fragment {
         //If back button from another fragment, clear list
         if (groceryList.size() > 0) {
             groceryList.clear();
+            arrayAdapter.clear();
         }
 
         String hashedEmail = dbConnect.getCurrentHash();
