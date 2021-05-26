@@ -11,53 +11,52 @@
         android:id="@+id/nameOfGrocery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="203dp"
-        android:layout_marginTop="117dp"
-        android:layout_marginEnd="208dp"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         android:textSize="32sp"
         android:textStyle="bold"
         android:typeface="serif"
+        app:layout_constraintBottom_toTopOf="@+id/consumedButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
         android:id="@+id/priceOfGrocery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="181dp"
-        android:layout_marginEnd="207dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textSize="32sp"
         android:textStyle="bold"
         android:typeface="serif"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/nameOfGrocery"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/nameOfGrocery"
+        app:layout_constraintTop_toBottomOf="@+id/nameOfGrocery" />
 
     <TextView
         android:id="@+id/amountValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="245dp"
-        android:layout_marginEnd="207dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textSize="32sp"
         android:textStyle="bold"
         android:typeface="serif"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/priceOfGrocery"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/priceOfGrocery"
+        app:layout_constraintTop_toBottomOf="@+id/priceOfGrocery" />
 
     <Button
         android:id="@+id/consumedButton"
         android:layout_width="337dp"
         android:layout_height="61dp"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="37dp"
         android:gravity="center"
         android:text="Consume"
@@ -65,9 +64,11 @@
         android:textStyle="bold"
         android:typeface="serif"
         app:backgroundTint="#3F51B5"
+        app:layout_constraintBottom_toTopOf="@+id/trashButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/amountValue" />
+        app:layout_constraintTop_toBottomOf="@+id/nameOfGrocery" />
 
     <Button
         android:id="@+id/trashButton"
