@@ -1,6 +1,5 @@
 package com.example.hkrgroup2se.Fragments;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.Question;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -161,7 +159,7 @@ public class QuizFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(questionsAnswered == 5){
-                    Navigation.findNavController(view).navigate(R.id.action_quizFragment_to_appFragment);
+                    Navigation.findNavController(view).navigate(R.id.action_quizFragment_pop);
                 }
                 generateQuestion();
 
