@@ -19,6 +19,7 @@ import com.example.hkrgroup2se.R;
 import com.example.hkrgroup2se.Skeleton.DBConnect;
 import com.example.hkrgroup2se.Skeleton.Grocery;
 import com.example.hkrgroup2se.Skeleton.Waste;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +39,7 @@ public class MyGroceriesFragment extends Fragment {
     DatabaseReference databaseReference;
     TextView nameOfGrocery, priceOfGrocery, amountValue;
     Button consumeButton, wasteButton, freezeButton;
+    FloatingActionButton backButton;
     ArrayList<Grocery> arrayList = new ArrayList<>();
 
     @Override
@@ -63,6 +65,7 @@ public class MyGroceriesFragment extends Fragment {
         consumeButton = view.findViewById(R.id.consumedButton);
         wasteButton = view.findViewById(R.id.trashButton);
         freezeButton = view.findViewById(R.id.freezeButton);
+        backButton = view.findViewById(R.id.backButtonMyGrocery);
 
         //GETS VALUE OF POS
         getPos();
@@ -101,6 +104,13 @@ public class MyGroceriesFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_myGroceriesFragment_to_inventoryFragment);
             }
         });
 
