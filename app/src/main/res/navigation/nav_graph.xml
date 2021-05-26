@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_appFragment_to_wasteStatFragment"
             app:destination="@id/wasteStatFragment" />
+        <action
+            android:id="@+id/action_appFragment_to_quizFragment"
+            app:destination="@id/quizFragment" />
     </fragment>
     <fragment
         android:id="@+id/addGroceriesFragment"
@@ -141,5 +144,14 @@
         <action
             android:id="@+id/action_forgotPasswordFragment_pop"
             app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.example.hkrgroup2se.Fragments.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_appFragment"
+            app:destination="@id/appFragment" />
     </fragment>
 </navigation>

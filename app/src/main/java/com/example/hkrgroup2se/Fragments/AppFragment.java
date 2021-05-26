@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AppFragment extends Fragment {
-    Button addGroceryFragment, inventoryButton, shoppingListButton, wasteStatButton, logOut;
+    Button addGroceryFragment, inventoryButton, shoppingListButton, wasteStatButton, logOut,quizButton;
     EditText email;
     private SharedPreferences sharedPref;
     Context context;
@@ -70,6 +70,14 @@ public class AppFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(view).navigate(R.id.action_appFragment_to_wasteStatFragment);
+            }
+        });
+
+        quizButton = view.findViewById(R.id.quizButton);
+        quizButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_appFragment_to_quizFragment);
             }
         });
 
