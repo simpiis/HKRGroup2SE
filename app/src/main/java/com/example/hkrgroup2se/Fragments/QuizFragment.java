@@ -27,7 +27,7 @@ public class QuizFragment extends Fragment {
     ArrayList<Question> questions = new ArrayList<>();
     Button optionOne,optionTwo,optionThree,Next;
     TextView questionText, answerText;
-    Question chosenQuestion ;
+    Question chosenQuestion,oldQuestion;
 
     Question question1 = new Question("How much is thrown away?","1/3","1/5","1/9","1/3");
     Question question2 = new Question("How much does food waste cost the global economy in billion dollars? ","505","940","700","940");
@@ -116,11 +116,22 @@ public class QuizFragment extends Fragment {
     public void generateQuestion(){
         answerText.setText("");
         Random randomNumber = new Random();
-        chosenQuestion = questions.get(randomNumber.nextInt(questions.size()));
+
+        if(chosenQuestion != null){
+            oldQuestion = chosenQuestion;
+            chosenQuestion = questions.get(randomNumber.nextInt(questions.size()));
+            while(chosenQuestion.getQuestion().equals(oldQuestion.getQuestion())){
+                chosenQuestion = questions.get(randomNumber.nextInt(questions.size()));
+            }
+        }else {
+            chosenQuestion = questions.get(randomNumber.nextInt(questions.size()));
+        }
+
         questionText.setText(chosenQuestion.getQuestion());
         optionOne.setText(chosenQuestion.getOption1());
         optionTwo.setText(chosenQuestion.getOption2());
         optionThree.setText(chosenQuestion.getOption3());
+
         optionOne.setClickable(true);
         optionTwo.setClickable(true);
         optionThree.setClickable(true);
