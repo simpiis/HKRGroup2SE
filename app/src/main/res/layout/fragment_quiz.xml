@@ -13,6 +13,9 @@
         android:layout_height="103dp"
         android:layout_marginTop="72dp"
         android:text="TextView"
+        android:textSize="25dip"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +28,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:text="Button"
+        app:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/questionText" />
@@ -35,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Button"
+        app:backgroundTint="#050505"
         app:layout_constraintEnd_toEndOf="@+id/optionOne"
         app:layout_constraintStart_toStartOf="@+id/optionOne"
         app:layout_constraintTop_toBottomOf="@+id/optionOne" />
@@ -45,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:text="Button"
+        app:backgroundTint="#000000"
         app:layout_constraintEnd_toEndOf="@+id/optionTwo"
         app:layout_constraintStart_toStartOf="@+id/optionTwo"
         app:layout_constraintTop_toBottomOf="@+id/optionTwo" />
@@ -55,6 +61,9 @@
         android:layout_height="67dp"
         android:layout_marginTop="50dp"
         android:text="TextView"
+        android:textSize="25dip"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/optionThree" />
@@ -64,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:background="#CC1F1F"
         android:text="NEXT"
         app:layout_constraintEnd_toEndOf="@+id/optionThree"
         app:layout_constraintStart_toStartOf="@+id/optionThree"

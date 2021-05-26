@@ -1,6 +1,7 @@
 package com.example.hkrgroup2se.Fragments;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -72,8 +73,12 @@ public class QuizFragment extends Fragment {
                 unclickableButton();
                 if (chosenQuestion.getOption1().equals(chosenQuestion.getAnswer())){
                     answerText.setText("Correct! Answer is : " + chosenQuestion.getAnswer());
+                    optionOne.setBackgroundColor(Color.GREEN);
+
                 }else{
                     answerText.setText("Wrong! Answer is : " + chosenQuestion.getAnswer());
+                    optionOne.setBackgroundColor(Color.RED);
+
                 }
             }
         });
@@ -84,8 +89,10 @@ public class QuizFragment extends Fragment {
                 unclickableButton();
                 if (chosenQuestion.getOption2().equals(chosenQuestion.getAnswer())){
                     answerText.setText("Correct! Answer is : " + chosenQuestion.getAnswer());
+                    optionTwo.setBackgroundColor(Color.GREEN);
                 }else{
                     answerText.setText("Wrong! Answer is : " + chosenQuestion.getAnswer());
+                    optionTwo.setBackgroundColor(Color.RED);
                 }
             }
         });
@@ -96,8 +103,10 @@ public class QuizFragment extends Fragment {
                 unclickableButton();
                 if (chosenQuestion.getOption3().equals(chosenQuestion.getAnswer())){
                     answerText.setText("Correct! Answer is : " + chosenQuestion.getAnswer());
+                    optionThree.setBackgroundColor(Color.GREEN);
                 }else{
                     answerText.setText("Wrong! Answer is : " + chosenQuestion.getAnswer());
+                    optionThree.setBackgroundColor(Color.RED);
                 }
             }
         });
@@ -135,6 +144,10 @@ public class QuizFragment extends Fragment {
         optionOne.setClickable(true);
         optionTwo.setClickable(true);
         optionThree.setClickable(true);
+
+        optionOne.setBackgroundColor(Color.BLACK);
+        optionTwo.setBackgroundColor(Color.BLACK);
+        optionThree.setBackgroundColor(Color.BLACK);
 
     }
 
